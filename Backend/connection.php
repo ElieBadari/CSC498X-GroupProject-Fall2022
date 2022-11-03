@@ -10,3 +10,7 @@ $db_pass = "null";
 $db_name = "twitterclonedb"
 
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+if($mysqli->$connect_error){
+    die("Connection failed: " . $connect_error);
+}

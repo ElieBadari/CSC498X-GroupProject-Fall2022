@@ -2,39 +2,51 @@
 
 include(connection.php);
 
-$username = $email = $password = "";
-$username_err = $email_err = $password_err = "";
+$username = $email = $pass = "";
 
+//retrieving and validating info
+//------------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (empty($_POST["username"])){
-        $username_err = "Name is required";
-    }else {
-        
+    if (isset($_POST["username"]) && $_POST["username"] != ""){
         $username = filter_data($_POST["username"]); 
-    }
-    if (empty($_POST["email"])){
-        $email_err = "email is required";
     }else {
-        
-        $email = filter_data($_POST["email"]);
-
-        
+        echo "Name is required"; 
+        return;
+    }
+    if (isset($_POST["email"]) && $_POST["email"] != ""){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailErr = "Invalid email format"; 
-         } 
-    }
-    if (empty($_POST["password"])){
-        $password_err = "password is required";
+            echo "Invalid email format";
+            return; 
+         }else {
+            $email = filter_data($_POST["email"]);
+         }
     }else {
-        
-        $password = filter_data($_POST["password"]); 
+       echo "Email is required";
+       return;
     }
+    if (isset($_POST["pass"]) && $_POST["pass"] != ""){
+        $pass = filter_data($_POST["pass"]); 
+    }else {
+        echo "Password is required";
+        return;
+    }
+    
     function filter_data($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
+    
+}
+//adding the user to the database
+//------------------------------
+$query = $mysqli->prepare("INSERT INTO users (username, email, pass) VALUES (?,?,?)");
+$query->bind_param("sss", $username, $email, $password);
+if ($query->execute() == true){
+    echo "Sucessfully added user";
+}else {
+    echo "Unsuccessful query";
 }
 
 
