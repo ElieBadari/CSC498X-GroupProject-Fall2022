@@ -23,7 +23,7 @@ public class Post {
     public int getOwner_id(){
         return owner_id;
     }
-    public void setIsliked(boolean new_is_liked){
+    public void setIsLiked(boolean new_is_liked){
         is_liked = new_is_liked;
     }
     public boolean getIsLiked(){

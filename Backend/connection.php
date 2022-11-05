@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: X-Requested-With");
 $db_host = "localhost";
 $db_user = "root";
 $db_pass = "null";
-$db_name = "twitterclonedb"
+$db_name = "twitterclonedb";
 
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 

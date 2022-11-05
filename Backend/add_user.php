@@ -3,34 +3,40 @@
 include(connection.php);
 
 $username = $email = $pass = "";
+$results = [];
+
 
 //retrieving and validating info
 //------------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_POST["username"]) && $_POST["username"] != ""){
-        $username = filter_data($_POST["username"]); 
+        $username = filter_data($_POST["username"]);
+        $results["Username"] = true;
     }else {
-        echo "Name is required"; 
+        $results["Username"] = false;
         return;
     }
     if (isset($_POST["email"]) && $_POST["email"] != ""){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            echo "Invalid email format";
+            $results["email_format"] = false;
             return; 
          }else {
             $email = filter_data($_POST["email"]);
+            $results["email"] = true;
          }
     }else {
-       echo "Email is required";
+       $results["email"] = false;
        return;
     }
     if (isset($_POST["pass"]) && $_POST["pass"] != ""){
-        $pass = filter_data($_POST["pass"]); 
+        $pass = hash('sha256', filter_data($_POST["pass"]));
+        $results["Password"] = true;
+
     }else {
-        echo "Password is required";
+        $results["Password"] = false;
         return;
     }
-    
+
     function filter_data($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -41,13 +47,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 //adding the user to the database
 //------------------------------
-$query = $mysqli->prepare("INSERT INTO users (username, email, pass) VALUES (?,?,?)");
-$query->bind_param("sss", $username, $email, $password);
-if ($query->execute() == true){
-    echo "Sucessfully added user";
-}else {
-    echo "Unsuccessful query";
+$flag = true;
+
+foreach($results as $value){
+    if(!$value){
+        $flag = false;
+    }
 }
+unset($value);
+
+$response = [];
+if (!$flag){
+    $response["Success"] = false;
+}else {
+    $query = $mysqli->prepare("INSERT INTO users (username, email, pass) VALUES (?,?,?)");
+    $query->bind_param("sss", $username, $email, $password);
+    if ($query->execute() == true){
+        $response["Success"] = true;
+    }else {
+        $response["Success"] = false;
+    }
+
+}
+echo json_encode($response);
+
+
 
 
 
