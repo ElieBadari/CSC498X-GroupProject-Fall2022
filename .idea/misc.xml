@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/xampp/htdocs/Projects/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_add_tweet.xml" value="0.21784420289855072" />
+        <entry key="..\:/xampp/htdocs/Projects/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_main.xml" value="0.21784420289855072" />
+        <entry key="..\:/xampp/htdocs/Projects/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_news_display.xml" value="0.21784420289855072" />
+        <entry key="..\:/xampp/htdocs/Projects/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_tweet_details.xml" value="0.21784420289855072" />
         <entry key="..\:/xampp/htdocs/group project mob comp/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_add_tweet.xml" value="0.11730072463768115" />
         <entry key="..\:/xampp/htdocs/group project mob comp/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/xampp/htdocs/group project mob comp/CSC498X-GroupProject-Fall2022/app/src/main/res/layout/activity_news_display.xml" value="0.11730072463768115" />
