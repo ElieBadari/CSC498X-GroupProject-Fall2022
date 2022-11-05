@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaApp">
         <activity
+            android:name=".TweetDetails"
+            android:exported="false" />
+        <activity
+            android:name=".NewsDisplay"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

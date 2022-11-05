@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         username =findViewById(R.id.password);
 
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity3.class);
+        Intent intent = new Intent(getApplicationContext(), NewsDisplay.class);
         startActivity(intent);
 
 
