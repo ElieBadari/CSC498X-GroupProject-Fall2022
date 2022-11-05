@@ -9,13 +9,21 @@ $results = [];
 //retrieving and validating info
 //------------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    //validate user
+    //-------------
     if (isset($_POST["username"]) && $_POST["username"] != ""){
+
+        
+
         $username = filter_data($_POST["username"]);
         $results["Username"] = true;
     }else {
         $results["Username"] = false;
         return;
     }
+
+    //validate email
+    //--------------
     if (isset($_POST["email"]) && $_POST["email"] != ""){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $results["email_format"] = false;
@@ -28,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
        $results["email"] = false;
        return;
     }
+
+    //validate password
+    //-----------------
     if (isset($_POST["pass"]) && $_POST["pass"] != ""){
         $pass = hash('sha256', filter_data($_POST["pass"]));
         $results["Password"] = true;
@@ -36,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $results["Password"] = false;
         return;
     }
+
 
     function filter_data($data) {
         $data = trim($data);
