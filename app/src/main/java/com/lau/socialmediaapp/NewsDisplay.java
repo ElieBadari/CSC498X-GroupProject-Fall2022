@@ -46,20 +46,20 @@ public class NewsDisplay extends AppCompatActivity {
             e.printStackTrace();
         }
 */
-        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_list_item_1, the_list);
+        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, the_list);
         my_list.setAdapter(adapter);
         my_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), Tweetdetails.class);
+                Intent intent = new Intent(getApplicationContext(), TweetDetails.class);
                 intent.putExtra("news_name", the_list.get(i));
                 startActivity(intent);
             }
         });
     }
 
-    public void addNews(View v){
+    /*public void addNews(View v){
         Intent intent= new Intent(getApplicationContext(),AddNews.class);
         startActivity(intent);
-    }
+    }*/
 }

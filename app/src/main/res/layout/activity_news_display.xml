@@ -6,4 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".NewsDisplay">
 
+
+    <ListView
+        android:id="@+id/my_list"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="155dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="176dp"
+        android:dividerHeight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ListView>
+
+    <Button
+
+        android:id="@+id/add_button"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="158dp"
+        android:layout_marginEnd="159dp"
+        android:backgroundTint="#040720"
+        android:onClick="addNews"
+        android:text="Add News"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.17000002" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
