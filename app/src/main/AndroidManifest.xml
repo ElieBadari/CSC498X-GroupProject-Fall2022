@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialMediaApp">
         <activity
+            android:name=".addTweet"
+            android:exported="false" />
+        <activity
             android:name=".TweetDetails"
             android:exported="false" />
         <activity

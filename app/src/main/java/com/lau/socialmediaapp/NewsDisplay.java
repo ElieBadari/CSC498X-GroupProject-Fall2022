@@ -58,8 +58,8 @@ public class NewsDisplay extends AppCompatActivity {
         });
     }
 
-    /*public void addNews(View v){
-        Intent intent= new Intent(getApplicationContext(),AddNews.class);
+    public void addNews(View v){
+        Intent intent= new Intent(getApplicationContext(),addTweet.class);
         startActivity(intent);
-    }*/
+    }
 }

@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
     public void submit(View v){
-        username =findViewById(R.id.username_name);
+        username =findViewById(R.id.tweet_content);
         username =findViewById(R.id.password);
 
 
