@@ -14,7 +14,8 @@ $flag = true;
 //validate user
 //-------------
 if (isset($_POST["username"]) && $_POST["username"] != ""){
-    $check_user_query = $mysqli->prepare("SELECT userId FROM users WHERE username = ?");
+    $check_user_query = $mysqli->prepare("SELECT `userId` FROM `users` WHERE `username` = ?");
+    
     $param_username = filter_data($_POST["username"]);
     $check_user_query->bind_param("s",$param_username);
     if($check_user_query->execute()){
@@ -25,6 +26,7 @@ if (isset($_POST["username"]) && $_POST["username"] != ""){
         }else {
             $username = filter_data($_POST["username"]);
             $results["Username Success"] = true;
+            
         }
     }
     $check_user_query->close();
@@ -35,14 +37,16 @@ if (isset($_POST["username"]) && $_POST["username"] != ""){
 //validate email
 //--------------
 if (isset($_POST["email"]) && $_POST["email"] != ""){
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $results["Email Format"] = false;
-        return; 
-        }else {
+    // if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+    //     $results["Email Format"] = false;
+    //     echo "worked";
+    //     return; 
+    //     }else {
         $email = filter_data($_POST["email"]);
         $results["Email Format"] = true;
         $results["Email Success"] = true;
-        }
+        
+        //}
 }else {
     $results["Email Success"] = false;
     return;
@@ -50,7 +54,7 @@ if (isset($_POST["email"]) && $_POST["email"] != ""){
 //validate password
 //-----------------
 if (isset($_POST["password"]) && $_POST["password"] != ""){
-    $pass = hash('sha256', filter_data($_POST["pass"]));
+    $pass = hash('sha256', filter_data($_POST["password"]));
     $results["Password Success"] = true;
 }else {
     $results["Password Success"] = false;
@@ -72,8 +76,8 @@ if (!$flag){
     return;
 }else {
     $response["User Success Values"] = true;
-    $query = $mysqli->prepare("INSERT INTO users ('username', 'email', 'password','bioContent') VALUES (?,?,?,?)");
-    $query->bind_param("ssss", $username, $email, $password, null);
+    $query = $mysqli->prepare("INSERT INTO `users` (`username`, `email`, `password`) VALUES (?,?,?)");
+    $query->bind_param("sss", $username, $email, $pass);
     if ($query->execute()){
         $response["User Success Query"] = true;
     }else {

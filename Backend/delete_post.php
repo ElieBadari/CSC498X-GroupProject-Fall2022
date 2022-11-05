@@ -35,7 +35,7 @@ if (!$flag){
     return;
 }else {
     $response["Delete Sucess Values"] = true;
-    $query = $mysqli->prepare("DELETE FROM posts WHERE postId = ? AND ownerId = ?");
+    $query = $mysqli->prepare("DELETE FROM `posts` WHERE `postId` = ? AND `ownerId` = ?");
     $query->bind_param("ii",$post_id,$owner_id);
     if($query->execute()){
         $response["Delete Succes Query"] = true; 
