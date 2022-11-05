@@ -68,14 +68,17 @@ foreach($results as $key => $value){
 unset($value);
 
 if (!$flag){
-    $response["User Success"] = false;
+    $response["User Success Values"] = false;
+    return;
 }else {
+    $response["User Success Values"] = true;
     $query = $mysqli->prepare("INSERT INTO users ('username', 'email', 'password','bioContent') VALUES (?,?,?,?)");
     $query->bind_param("ssss", $username, $email, $password, null);
-    if ($query->execute() === true){
-        $response["User Success"] = true;
+    if ($query->execute()){
+        $response["User Success Query"] = true;
     }else {
-        $response["User Success"] = false;
+        $response["User Success Query"] = false;
+        return;
     }
 }
 

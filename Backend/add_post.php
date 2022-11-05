@@ -32,14 +32,17 @@ foreach($results as $key => $value){
 unset($value);
 
 if(!$flag){
-    $response["Post Success"] = false;
+    $response["Post Success Values"] = false;
+    return;
 }else {
+    $response["Post Success Values"] = true;
     $query = $mysqli->prepare("INSERT INTO posts ('ownerId','content') VALUES (?,?)");
     $query->bind_param("is",$owner_id,$content);
-    if ($query->execute() === true){
-        $response["Post Success"] = true;
+    if ($query->execute()){
+        $response["Post Success Query"] = true;
     }else {
-        $response["Post Success"] = false;
+        $response["Post Success Query"] = false;
+        return;
     }
 }
 echo json_encode($response);
