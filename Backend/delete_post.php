@@ -43,8 +43,8 @@ if (!$flag){
         $response["Delete Success Query"] = false;
         return;
     }
-
 }
+
 echo json_encode($response);
 
 
