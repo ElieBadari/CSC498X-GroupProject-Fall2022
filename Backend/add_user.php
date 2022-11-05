@@ -4,6 +4,8 @@ include(connection.php);
 
 $username = $email = $pass = "";
 $results = [];
+$response = [];
+$flag = true;
 
 
 //retrieving and validating info
@@ -12,42 +14,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //validate user
     //-------------
     if (isset($_POST["username"]) && $_POST["username"] != ""){
-
-        
-
-        $username = filter_data($_POST["username"]);
-        $results["Username"] = true;
+        $check_user_query = $mysqli->prepare("SELECT userId FROM users WHERE username = ?");
+        $check_user_query->bind_param("s",filter_data($_POST["username"]));
+        if($check_user_query->execute()){
+            $check_user_query->store_result();
+            if($check_user_query->num_rows == 1){
+                $results["Username Success"] = false;
+                return
+            }else {
+                $username = filter_data($_POST["username"]);
+                $results["Username Success"] = true;
+            }
+        }
+        $check_user_query->close();
     }else {
-        $results["Username"] = false;
+        $results["Username Success"] = false;
         return;
     }
-
     //validate email
     //--------------
     if (isset($_POST["email"]) && $_POST["email"] != ""){
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $results["email_format"] = false;
+            $results["Email Format"] = false;
             return; 
          }else {
             $email = filter_data($_POST["email"]);
-            $results["email"] = true;
+            $results["Email Success"] = true;
          }
     }else {
-       $results["email"] = false;
+       $results["Email Success"] = false;
        return;
     }
-
     //validate password
     //-----------------
     if (isset($_POST["pass"]) && $_POST["pass"] != ""){
         $pass = hash('sha256', filter_data($_POST["pass"]));
-        $results["Password"] = true;
-
+        $results["Password Success"] = true;
     }else {
-        $results["Password"] = false;
+        $results["Password Success"] = false;
         return;
     }
-
 
     function filter_data($data) {
         $data = trim($data);
@@ -55,36 +61,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $data = htmlspecialchars($data);
         return $data;
     }
-    
 }
 //adding the user to the database
 //------------------------------
-$flag = true;
-
-foreach($results as $value){
+foreach($results as $key => $value){
     if(!$value){
+        $response[$key] = $value;
         $flag = false;
     }
 }
 unset($value);
 
-$response = [];
+
 if (!$flag){
-    $response["Success"] = false;
+    $response["User Success"] = false;
 }else {
     $query = $mysqli->prepare("INSERT INTO users (username, email, pass) VALUES (?,?,?)");
     $query->bind_param("sss", $username, $email, $password);
     if ($query->execute() == true){
-        $response["Success"] = true;
+        $response["User Success"] = true;
     }else {
-        $response["Success"] = false;
+        $response["User Success"] = false;
     }
 
 }
 echo json_encode($response);
-
-
-
-
 
 ?>
