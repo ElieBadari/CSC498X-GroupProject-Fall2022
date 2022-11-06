@@ -14,15 +14,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LinkingApis {
+public class LinkingClass {
     private String base_url = "";
     private RequestQueue queue;
     private StringRequest request;
 
-    public void getPosts(int id){
-        String url = base_url + "get_articles.php?id=" + id ;
-        request = new StringRequest(Request.Method.GET, url, this::onResponse, this::onError);
-        queue.add(request);
+    public void getPosts(){
+
     }
     public void getPost(){
 
