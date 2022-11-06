@@ -1,16 +1,16 @@
 <?php
 include("connection.php");
 
-$owner_id = 0;
+$user_id = 0;
 $post_id = 0;
 $results = [];
 $response =[];
 
-if (isset($_POST["ownerId"]) && $_POST["ownerId"] != 0){
-    $owner_id = $_POST["ownerId"];
-    $results["Owner ID Success"] = true;
+if (isset($_POST["userId"]) && $_POST["userId"] != 0){
+    $user_id = $_POST["userId"];
+    $results["User ID Success"] = true;
 }else {
-    $results["Owner ID Success"] = false;
+    $results["User ID Success"] = false;
     return;
 }
 if (isset($_POST["postId"]) && $_POST["postId"] != 0){
@@ -35,8 +35,8 @@ if (!$flag){
     return;
 }else {
     $response["Delete Sucess Values"] = true;
-    $query = $mysqli->prepare("DELETE FROM `posts` WHERE `postId` = ? AND `ownerId` = ?");
-    $query->bind_param("ii",$post_id,$owner_id);
+    $query = $mysqli->prepare("DELETE FROM `posts` WHERE `postId` = ? AND `userId` = ?");
+    $query->bind_param("ii",$post_id,$user_id);
     if($query->execute()){
         $response["Delete Succes Query"] = true; 
     }else {

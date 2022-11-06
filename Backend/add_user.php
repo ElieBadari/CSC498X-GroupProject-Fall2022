@@ -15,7 +15,6 @@ $flag = true;
 //-------------
 if (isset($_POST["username"]) && $_POST["username"] != ""){
     $check_user_query = $mysqli->prepare("SELECT `userId` FROM `users` WHERE `username` = ?");
-    
     $param_username = filter_data($_POST["username"]);
     $check_user_query->bind_param("s",$param_username);
     if($check_user_query->execute()){
@@ -37,16 +36,15 @@ if (isset($_POST["username"]) && $_POST["username"] != ""){
 //validate email
 //--------------
 if (isset($_POST["email"]) && $_POST["email"] != ""){
-    // if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-    //     $results["Email Format"] = false;
-    //     echo "worked";
-    //     return; 
-    //     }else {
-        $email = filter_data($_POST["email"]);
-        $results["Email Format"] = true;
-        $results["Email Success"] = true;
+    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
+            $results["Email Format"] = false;
+            return; 
+        }else {
+            $email = filter_data($_POST["email"]);
+            $results["Email Format"] = true;
+            $results["Email Success"] = true;
         
-        //}
+        }
 }else {
     $results["Email Success"] = false;
     return;

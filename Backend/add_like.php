@@ -2,11 +2,15 @@
 include("connection.php");
 
 $post_id = 0;
-$owner_id = 0;
+$user_id = 0;
 $results = [];
 $response = [];
 $flag = true;
+//retrieving and validating info
+//------------------------------
 
+//validate data
+//-------------
 if (isset($_POST["postId"]) && $_POST["postId"] != 0){
     $post_id = $_POST["postId"];
     $results["Post ID Success"] = true;
@@ -14,11 +18,11 @@ if (isset($_POST["postId"]) && $_POST["postId"] != 0){
     $results["Post ID Success"] = false;
     return;
 }
-if (isset($_POST["ownerId"]) && $_POST["ownerId"] != 0){
-    $post_id = $_POST["ownerId"];
-    $results["Owner ID Success"] = true;
+if (isset($_POST["userId"]) && $_POST["userId"] != 0){
+    $user_id = $_POST["userId"];
+    $results["User ID Success"] = true;
 }else {
-    $results["Owner ID Success"] = false;
+    $results["User ID Success"] = false;
     return;
 }
 
@@ -29,14 +33,15 @@ foreach($results as $key => $value){
     $response[$key] = $value;
 }
 unset($value);  
-
+//adding the likes to the database
+//------------------------------
 if (!$flag){
     $response["Add Like Success Values"] = false;
     return;
 }else {
     $response["Add Like Success Values"] = true;
-    $query = $mysqli->prepare("UPDATE `posts` SET `likeCount` = likeCount+1 WHERE `postId` = ? AND `ownerId`= ?");
-    $query->bind_param("ii",$post_id,$owner_id);
+    $query = $mysqli->prepare("UPDATE `posts` SET `likeCount` = likeCount+1 WHERE `postId` = ? AND `userId`= ?");
+    $query->bind_param("ii",$post_id,$user_id);
     if($query->execute()){
         $response["Add Like Success Query"] = true;
     }else {

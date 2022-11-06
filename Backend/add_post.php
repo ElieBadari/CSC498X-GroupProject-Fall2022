@@ -3,7 +3,7 @@ include("connection.php");
 include("functions.php");
 
 $content = "";
-$owner_id = 0;
+$user_id = 0;
 $initial_like_count = 0;
 $results = [];
 $response = [];
@@ -17,11 +17,11 @@ if (isset($_POST["content"]) && $_POST["content"] != ""){
     $results["Content Success"] = false;
     return;
 }
-if (isset($_POST["ownerId"]) && $_POST["ownerId"] != 0){
-    $owner_id = filter_data($_POST["ownerId"]);
-    $results["Owner ID Success"] = true;
+if (isset($_POST["userId"]) && $_POST["userId"] != 0){
+    $user_id = filter_data($_POST["userId"]);
+    $results["User ID Success"] = true;
 }else {
-    $results["Owner ID Success"] = false;
+    $results["User ID Success"] = false;
     return;
 }
 foreach($results as $key => $value){
@@ -37,8 +37,8 @@ if(!$flag){
     return;
 }else {
     $response["Post Success Values"] = true;
-    $query = $mysqli->prepare("INSERT INTO `posts` (`ownerId`,`content`,`likeCount`) VALUES (?,?,?)");
-    $query->bind_param("isi",$owner_id,$content,$initial_like_count);
+    $query = $mysqli->prepare("INSERT INTO `posts` (`userId`,`content`,`likeCount`) VALUES (?,?,?)");
+    $query->bind_param("isi",$user_id,$content,$in);
     if ($query->execute()){
         $response["Post Success Query"] = true;
     }else {
