@@ -47,7 +47,6 @@ if (isset($_POST["email"]) && $_POST["email"] != ""){
         }else {
             $email = filter_data($_POST["email"]);
             $results["Email Success"] = true;
-            
         }
     }
     $check_email_query->close();
@@ -84,12 +83,23 @@ if (!$flag){
     $query->bind_param("sss", $username, $email, $pass);
     if ($query->execute()){
         $response["User Success Query"] = true;
+        $query->close();
     }else {
         $response["User Success Query"] = false;
         return;
     }
+    
 }
-
+//user has successfully signed up now to directly log them in
+$query = $mysqli->prepare("SELECT userId FROM users WHERE username = ? AND email = ?");
+$query->bind_param("ss",$username,$email);
+if ($query->execute()){
+    $response["User Login Success"] = true;
+    $query->get_result();
+    $response["userId"] = $query->fetch_assoc();
+}else {
+    $response["User Login Success"] = false;
+}
 echo json_encode($response);
 
 ?>
