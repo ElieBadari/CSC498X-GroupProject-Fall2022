@@ -36,15 +36,21 @@ if (isset($_POST["username"]) && $_POST["username"] != ""){
 //validate email
 //--------------
 if (isset($_POST["email"]) && $_POST["email"] != ""){
-    if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-            $results["Email Format"] = false;
-            return; 
+    $check_email_query = $mysqli->prepare("SELECT `userId` FROM `users` WHERE `email` = ?");
+    $param_email = filter_data($_POST["email"]);
+    $check_email_query->bind_param("s",$param_email);
+    if($check_email_query->execute()){
+        $check_email_query->store_result();
+        if($check_email_query->num_rows == 1){
+            $results["Email Success"] = false;
+            return;
         }else {
             $email = filter_data($_POST["email"]);
-            $results["Email Format"] = true;
             $results["Email Success"] = true;
-        
+            
         }
+    }
+    $check_email_query->close();
 }else {
     $results["Email Success"] = false;
     return;
