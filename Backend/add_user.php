@@ -91,12 +91,12 @@ if (!$flag){
     
 }
 //user has successfully signed up now to directly log them in
-$query = $mysqli->prepare("SELECT userId FROM users WHERE username = ? AND email = ?");
-$query->bind_param("ss",$username,$email);
-if ($query->execute()){
+$login_query = $mysqli->prepare("SELECT userId FROM users WHERE username = ? AND email = ?");
+$login_query->bind_param("ss",$username,$email);
+if ($login_query->execute()){
     $response["User Login Success"] = true;
-    $query->get_result();
-    $response["userId"] = $query->fetch_assoc();
+    $login_query->get_result();
+    $response["userId"] = $login_query->fetch_assoc();
 }else {
     $response["User Login Success"] = false;
 }

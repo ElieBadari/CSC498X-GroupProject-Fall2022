@@ -13,6 +13,12 @@ public class User {
         password = new_password;
         bio_content = new_bio_content;
     }
+    public User(String new_username, String new_password){
+        username = new_username;
+        password = new_password;
+        email = " ";
+        bio_content = " ";
+    }
 
     public String getUsername() {
         return username;

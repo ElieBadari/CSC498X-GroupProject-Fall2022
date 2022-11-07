@@ -34,9 +34,33 @@ public class LinkingClass {
     public void deletePost(){
 
     }
-    public void addUser(){
+    public void addUser(User user){
+        String url = base_url + "add_user.php";
+
+
+        request = new StringRequest(Request.Method.POST, url, this::onResponse, this::onError) {
+
+            public Map<String, String> getParams() {
+
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", user.getUsername());
+                params.put("password",user.getPassword());
+                params.put("email",user.getEmail());
+                params.put("bioContent", null);
+                return params;
+            }
+
+        };
+        queue.add(request);
 
     }
+
+    private void onError(VolleyError volleyError) {
+    }
+
+    private void onResponse(String s) {
+    }
+
     public void editProfile(){
 
     }

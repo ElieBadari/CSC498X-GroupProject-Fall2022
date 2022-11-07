@@ -2,20 +2,14 @@ package com.lau.socialmediaapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class NewsDisplay extends AppCompatActivity {
+public class FeedActivity extends AppCompatActivity {
 
     ListView my_list;
     ArrayList<String> the_list;
@@ -24,8 +18,8 @@ public class NewsDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        my_list = findViewById(R.id.my_list);
-        the_list = new ArrayList<String>();
+//        my_list = findViewById(R.id.my_list);
+//        the_list = new ArrayList<String>();
     /*    try{
 
             SQLiteDatabase sql = this.openOrCreateDatabase("newsdb", MODE_PRIVATE, null);
@@ -46,20 +40,20 @@ public class NewsDisplay extends AppCompatActivity {
             e.printStackTrace();
         }
 */
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, the_list);
-        my_list.setAdapter(adapter);
-        my_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), TweetDetails.class);
-                intent.putExtra("news_name", the_list.get(i));
-                startActivity(intent);
-            }
-        });
+//        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, the_list);
+//        my_list.setAdapter(adapter);
+//        my_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getApplicationContext(), TweetDetails.class);
+//                intent.putExtra("news_name", the_list.get(i));
+//                startActivity(intent);
+//            }
+//        });
     }
 
     public void addNews(View v){
-        Intent intent= new Intent(getApplicationContext(),addTweet.class);
+        Intent intent= new Intent(getApplicationContext(), TweetActivity.class);
         startActivity(intent);
     }
 }
