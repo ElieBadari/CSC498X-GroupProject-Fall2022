@@ -10,6 +10,8 @@
     tools:context=".SplashActivity">
 
     <!--on below line we are adding an image view-->
+
+    <!--on below line we are creating progress bar-->
     <ImageView
         android:id="@+id/idIVLogo"
         android:layout_width="wrap_content"
@@ -19,10 +21,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:src="@drawable/gfglogo"
-        />
+        android:src="@drawable/gfglogo" />
 
-    <!--on below line we are creating progress bar-->
     <ProgressBar
         android:id="@+id/idPBLoading"
         android:layout_width="wrap_content"
